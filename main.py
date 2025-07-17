@@ -111,6 +111,6 @@ async def home():
 
     """source venv/Scripts/activate"""
     """uvicorn main:app --reload"""
-    """git add .
-       git commit -m "Préparation déploiement Render"
-       git push origin master"""
+    """git add main.py static/
+git commit -m "Ajout de l'interface HTML"
+git push origin master"
