@@ -66,9 +66,3 @@ def download_translated_pdf(file_id: str):
     if os.path.exists(output_path):
         return FileResponse(output_path, media_type="application/pdf", filename="translated.pdf")
     return {"error": "Fichier non trouvé"}
-    
-    """source venv/Scripts/activate"""
-    """uvicorn main:app --reload"""
-    """git add main.py static/
-git commit -m "Ajout de l'interface HTML"
-git push origin master"
