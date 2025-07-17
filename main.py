@@ -74,7 +74,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/", response_class=HTMLResponse)
 async def home():
-    return '''
+    return 
     <html>
         <head>
             <title>PDF Translator</title>
@@ -106,7 +106,7 @@ async def home():
             </form>
         </body>
     </html>
-    '''
+    
     
 
     """source venv/Scripts/activate"""
