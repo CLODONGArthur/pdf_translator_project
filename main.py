@@ -6,7 +6,13 @@ import os, uuid
 from utils.pdf_tools import extract_text_from_pdf, create_pdf
 from utils.translation import translate_text
 
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+from fastapi.requests import Request
+
 app = FastAPI()
+
+templates = Jinja2Templates(directory="templates")
 
 UPLOAD_FOLDER = "uploads"
 OUTPUT_FOLDER = "translated"
@@ -59,7 +65,10 @@ async def translate_pdf(
         </body>
     </html>
     """
-
+@app.get("/")
+def home(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+    
 @app.get("/download/{file_id}")
 def download_translated_pdf(file_id: str):
     output_path = os.path.join(OUTPUT_FOLDER, f"{file_id}_translated.pdf")
