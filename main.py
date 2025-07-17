@@ -66,49 +66,7 @@ def download_translated_pdf(file_id: str):
     if os.path.exists(output_path):
         return FileResponse(output_path, media_type="application/pdf", filename="translated.pdf")
     return {"error": "Fichier non trouvé"}
-
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
-
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
-@app.get("/", response_class=HTMLResponse)
-async def home():
-    return 
-    <html>
-        <head>
-            <title>PDF Translator</title>
-            <style>
-                body { font-family: Arial; margin: 40px; background-color: #f5f5f5; }
-                form { background: white; padding: 20px; border-radius: 8px; max-width: 500px; margin: auto; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-                input, select { width: 100%; padding: 10px; margin-top: 10px; }
-                button { padding: 10px 20px; background-color: #007BFF; color: white; border: none; border-radius: 4px; margin-top: 10px; }
-                button:hover { background-color: #0056b3; }
-            </style>
-        </head>
-        <body>
-            <form action="/translate-pdf/" enctype="multipart/form-data" method="post">
-                <h2>📄 PDF Translator</h2>
-                <input type="file" name="file" accept="application/pdf" required>
-                <label>Langue source :</label>
-                <select name="source_lang">
-                    <option value="fr">Français</option>
-                    <option value="en">Anglais</option>
-                    <option value="es">Espagnol</option>
-                </select>
-                <label>Langue cible :</label>
-                <select name="target_lang">
-                    <option value="en">Anglais</option>
-                    <option value="fr">Français</option>
-                    <option value="de">Allemand</option>
-                </select>
-                <button type="submit">Traduire</button>
-            </form>
-        </body>
-    </html>
     
-    
-
     """source venv/Scripts/activate"""
     """uvicorn main:app --reload"""
     """git add main.py static/
