@@ -1,0 +1,17 @@
+# Clés sensibles
+.env
+
+# Fichiers/dossiers temporaires
+uploads/
+translated/
+__pycache__/
+*.pyc
+*.pyo
+
+# Environnement virtuel
+venv/
+env/
+
+# Éditeurs de code
+.vscode/
+.idea/

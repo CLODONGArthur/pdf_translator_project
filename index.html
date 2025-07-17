@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Traduction PDF</title>
+</head>
+<body>
+    <h1>Traduction PDF</h1>
+    <form id="translate-form" enctype="multipart/form-data">
+        <label for="file">Choisir un fichier PDF :</label><br />
+        <input type="file" id="file" name="file" accept="application/pdf" required /><br /><br />
+
+        <label for="source_lang">Langue source (ex: FR) :</label><br />
+        <input type="text" id="source_lang" name="source_lang" required /><br /><br />
+
+        <label for="target_lang">Langue cible (ex: EN) :</label><br />
+        <input type="text" id="target_lang" name="target_lang" required /><br /><br />
+
+        <button type="submit">Traduire</button>
+    </form>
+
+    <p id="result"></p>
+
+    <script>
+        const form = document.getElementById('translate-form');
+        const result = document.getElementById('result');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+
+            result.textContent = "Traduction en cours...";
+
+            try {
+                const response = await fetch('/translate-pdf/', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Erreur serveur: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                if (data.download_url) {
+                    const fullUrl = window.location.origin + data.download_url;
+                    result.innerHTML = `Traduction terminée, <a href="${fullUrl}" target="_blank">cliquez ici pour télécharger le PDF traduit</a>.`;
+                } else if (data.error) {
+                    result.textContent = `Erreur : ${data.error}`;
+                } else {
+                    result.textContent = "Une erreur inconnue est survenue.";
+                }
+            } catch (err) {
+                result.textContent = `Erreur : ${err.message}`;
+            }
+        });
+    </script>
+</body>
+</html>
