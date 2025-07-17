@@ -42,3 +42,6 @@ def download_translated_pdf(file_id: str):
 
     """source venv/Scripts/activate"""
     """uvicorn main:app --reload"""
+    """git add .
+       git commit -m "Préparation déploiement Render"
+       git push origin master"""
